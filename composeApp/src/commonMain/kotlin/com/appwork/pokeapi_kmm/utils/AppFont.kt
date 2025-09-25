@@ -1,17 +1,12 @@
 package com.appwork.pokeapi_kmm.utils
 
-enum class AppFont(val size: Int, val weight: FontWeight) {
-    HeaderHeadline(24, FontWeight.Bold),
-    HeaderSubtitle1(14, FontWeight.Bold),
-    HeaderSubtitle2(12, FontWeight.Bold),
-    HeaderSubtitle3(10, FontWeight.Bold),
-    Body1(14, FontWeight.Regular),
-    Body2(12, FontWeight.Regular),
-    Body3(10, FontWeight.Regular),
-    Caption(8, FontWeight.Regular);
-}
-
-enum class FontWeight {
-    Regular,
-    Bold
+object FontUtils {
+    val headerHeadline = FontBase(size = 24.0, weight = FontWeight.Bold)
+    val headerSubtitle1 = FontBase(size = 14.0, weight = FontWeight.Bold)
+    val headerSubtitle2 = FontBase(size = 12.0, weight = FontWeight.Bold)
+    val headerSubtitle3 = FontBase(size = 10.0, weight = FontWeight.Bold)
+    val body1 = FontBase(size = 14.0, weight = FontWeight.Regular)
+    val body2 = FontBase(size = 12.0, weight = FontWeight.Regular)
+    val body3 = FontBase(size = 10.0, weight = FontWeight.Regular)
+    val caption = FontBase(size = 8.0, weight = FontWeight.Regular)
 }
