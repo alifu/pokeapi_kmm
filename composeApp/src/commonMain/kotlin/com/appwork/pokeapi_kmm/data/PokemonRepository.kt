@@ -9,8 +9,8 @@ import io.ktor.client.request.*
 
 class PokemonRepository(private val client: HttpClient) {
     companion object {
-        private const val BASE = "https://pokeapi.co/api/v2"
-//        private const val BASE = "http://10.0.2.2:3002"
+//        private const val BASE = "https://pokeapi.co/api/v2"
+        private const val BASE = "http://10.0.2.2:3002"
 //        private const val BASE = "http://localhost:3002"
     }
 

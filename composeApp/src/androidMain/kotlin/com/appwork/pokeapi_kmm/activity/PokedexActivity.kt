@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.appwork.pokeapi_kmm.screen.PokedexScreen
+import com.appwork.pokeapi_kmm.screen.PokedexView
 
 class PokedexActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,13 +12,7 @@ class PokedexActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            PokedexScreen()
+            PokedexView()
         }
     }
-}
-
-@Preview
-@Composable
-fun AppAndroidPreview() {
-
 }

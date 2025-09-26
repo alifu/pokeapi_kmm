@@ -8,6 +8,13 @@ import SwiftUI
 struct PokedexView: View {
     @StateObject var viewModel = PokedexViewModel()
     @State private var buttonFrame: CGRect = .zero
+    @State private var selectedPokemon: Int?
+    
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -38,6 +45,31 @@ struct PokedexView: View {
                     }
                     .padding(.trailing, 16)
                 }
+                
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(AppColor.white))
+                    
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 8) {
+                            ForEach(Array(viewModel.pokemons.enumerated()), id: \.offset) { (index, element) in
+
+                                Button {
+                                    selectedPokemon = index
+                                } label: {
+                                    let item = element
+                                    PokemonCard(
+                                        name: item.name,
+                                        imageURL: item.imageURL,
+                                        idTag: item.id ?? ""
+                                    )
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                }
+                .padding(8)
             }
         }
     }

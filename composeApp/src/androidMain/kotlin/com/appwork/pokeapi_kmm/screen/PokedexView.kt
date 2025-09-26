@@ -1,6 +1,5 @@
 package com.appwork.pokeapi_kmm.screen
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
@@ -27,11 +26,17 @@ import androidx.compose.ui.geometry.Rect
 import com.appwork.pokeapi_kmm.compose.*
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
 
 @Composable
-fun PokedexScreen(viewModel: PokedexViewModel = viewModel()) {
-    val pokedexResponse by viewModel.list.observeAsState()
+fun PokedexView(viewModel: PokedexViewModel = viewModel()) {
+    val pokedexResponse by viewModel.list.observeAsState(emptyList())
     var buttonFrame by remember { mutableStateOf<Rect?>(null) }
+    var selectedPokemon by remember { mutableStateOf(-1) }
 
     LaunchedEffect(Unit) {
         viewModel.loadPage()
@@ -40,7 +45,7 @@ fun PokedexScreen(viewModel: PokedexViewModel = viewModel()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppColor.Primary.toComposeColor()) // background color
+            .background(AppColor.Primary.toComposeColor())
     ) {
         Column(
             modifier = Modifier
@@ -70,6 +75,8 @@ fun PokedexScreen(viewModel: PokedexViewModel = viewModel()) {
                 Spacer(modifier = Modifier.weight(1f))
             }
 
+            Spacer(modifier = Modifier.height(8.dp))
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -96,6 +103,38 @@ fun PokedexScreen(viewModel: PokedexViewModel = viewModel()) {
                     modifier = Modifier
                         .size(40.dp)
                 )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(AppColor.White.toComposeColor())
+            ) {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(3), // 3 columns
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    itemsIndexed(pokedexResponse) { index, item ->
+                        PokemonCard(
+                            name = item.name,
+                            imageURL = item.imageURL,
+                            idTag = item.id ?: "",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight()
+                                .clickable {
+                                    selectedPokemon = index
+                                }
+                        )
+                    }
+                }
             }
         }
     }

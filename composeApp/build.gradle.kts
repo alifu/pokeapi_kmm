@@ -22,6 +22,11 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+
+            // Export libs you want to access from Swift
+//            export(libs.ktor.client.core)
+//            export(libs.ktor.client.darwin)
+//            export("io.github.reactivecircus.cache4k:cache4k:0.13.0")
         }
     }
 
@@ -48,6 +53,8 @@ kotlin {
 
                 // Okio
                 implementation("com.squareup.okio:okio:3.9.0")
+
+                implementation("io.github.reactivecircus.cache4k:cache4k:0.13.0")
             }
         }
 

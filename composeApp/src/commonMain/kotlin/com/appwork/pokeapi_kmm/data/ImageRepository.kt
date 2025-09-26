@@ -9,6 +9,9 @@ import kotlinx.coroutines.withContext
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import okio.SYSTEM
+import io.ktor.utils.io.core.*
+import io.github.reactivecircus.cache4k.Cache
+import kotlin.time.Duration.Companion.minutes
 
 class ImageRepository(
     private val httpClient: HttpClient,
@@ -46,6 +49,19 @@ class ImageRepository(
             url.substring(idx) // includes the dot
         } else {
             ".img" // fallback
+        }
+    }
+}
+
+class SharedImageLoader(private val httpClient: HttpClient) {
+    private val cache = Cache.Builder<String, ByteArray>()
+        .expireAfterWrite(10.minutes)
+        .build()
+
+    suspend fun load(url: String): ByteArray {
+        return cache.get(url) {
+            val response: HttpResponse = httpClient.get(url)
+            response.bodyAsChannel().readRemaining().readBytes()
         }
     }
 }

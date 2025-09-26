@@ -12,6 +12,7 @@ class PokedexViewModel: ObservableObject {
     @Published var error: String?
     @Published var searchText: String = ""
     @Published var showSortMenu: Bool = false
+    @Published var pokemons: [Pokedex] = []
 
     init() {
         // defer network work to a Task
@@ -24,7 +25,8 @@ class PokedexViewModel: ObservableObject {
         do {
             let res = try await sdk.fetchPokedex(limit: 20, offset: 0)
             pokedex = res
-            print(pokedex)
+            pokemons.append(contentsOf: res.results)
+            print(pokemons)
         } catch {
             // error = "Load failed: \(error)"
             print("Kotlin/Native error:", error)
