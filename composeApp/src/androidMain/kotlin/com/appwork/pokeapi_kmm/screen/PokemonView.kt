@@ -12,7 +12,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.appwork.pokeapi_kmm.R
@@ -23,26 +22,18 @@ import com.appwork.pokeapi_kmm.view_model.PokemonViewModel
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.layout.ContentScale
 import com.appwork.pokeapi_kmm.compose.PokemonStats
 import com.appwork.pokeapi_kmm.compose.TypeCapsule
-import com.appwork.pokeapi_kmm.data.SharedImageLoader
-import com.appwork.pokeapi_kmm.services.KtorClientFactory
 import com.appwork.pokeapi_kmm.utils.AppColor
 import com.appwork.pokeapi_kmm.utils.toKg
 import com.appwork.pokeapi_kmm.utils.toMeters
-import kotlinx.coroutines.launch
 
 @Composable
 fun PokemonView(
     viewModel: PokemonViewModel,
     onBack: () -> Unit
 ) {
-
-    val current by viewModel.current.collectAsState()
     val pokemon by viewModel.pokemon.collectAsState()
-    val species by viewModel.pokemonSpecies.collectAsState()
-    val imageBytes by viewModel.imageBytes.collectAsState()
 
     Box(
         modifier = Modifier
@@ -67,11 +58,7 @@ private fun HeaderView(
     viewModel: PokemonViewModel,
     onBack: () -> Unit
 ) {
-
-    val current by viewModel.current.collectAsState()
     val pokemon by viewModel.pokemon.collectAsState()
-    val species by viewModel.pokemonSpecies.collectAsState()
-    val imageBytes by viewModel.imageBytes.collectAsState()
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -123,14 +110,7 @@ private fun HeaderView(
 
 @Composable
 private fun BannerView(viewModel: PokemonViewModel) {
-
-    val current by viewModel.current.collectAsState()
-    val pokemon by viewModel.pokemon.collectAsState()
-    val species by viewModel.pokemonSpecies.collectAsState()
     val imageBytes by viewModel.imageBytes.collectAsState()
-    var bitmap by remember { mutableStateOf<android.graphics.Bitmap?>(null) }
-    val scope = rememberCoroutineScope()
-    val loader = remember { SharedImageLoader(KtorClientFactory().create()) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -205,10 +185,9 @@ private fun BackgroundView(viewModel: PokemonViewModel) {
 
 @Composable
 private fun ContentView(viewModel: PokemonViewModel) {
-    val current by viewModel.current.collectAsState()
     val pokemon by viewModel.pokemon.collectAsState()
     val species by viewModel.pokemonSpecies.collectAsState()
-    val imageBytes by viewModel.imageBytes.collectAsState()
+
     LazyColumn(
         modifier = Modifier
             .padding(top = 72.dp)

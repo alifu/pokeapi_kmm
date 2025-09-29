@@ -1,6 +1,5 @@
 package com.appwork.pokeapi_kmm.view_model
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,15 +9,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.appwork.pokeapi_kmm.PokemonSDK
 import com.appwork.pokeapi_kmm.models.Pokedex
-import com.appwork.pokeapi_kmm.models.PokedexResponse
-import com.appwork.pokeapi_kmm.models.Pokemon
-import com.appwork.pokeapi_kmm.models.PokemonSpecies
 import kotlinx.coroutines.launch
 
 class PokedexViewModel: ViewModel() {
     private val sdk = PokemonSDK()
 
-    private val _list = MutableLiveData<List<Pokedex>>()  // <-- store a list
+    private val _list = MutableLiveData<List<Pokedex>>()
     val list: LiveData<List<Pokedex>> = _list
     var searchText by mutableStateOf("")
         private set
@@ -42,10 +38,8 @@ class PokedexViewModel: ViewModel() {
                 val currentList = _list.value.orEmpty()
                 val updatedList = currentList + res.results
                 _list.postValue(updatedList)
-                Log.d("PokedexScreen", "Loaded Pokemon response: $res")
             } catch (e: Exception) {
                 // handle error (post state)
-                Log.e("PokedexScreen", "${e.message}")
             }
         }
     }

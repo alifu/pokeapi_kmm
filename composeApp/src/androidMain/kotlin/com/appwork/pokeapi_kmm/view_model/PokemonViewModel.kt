@@ -71,9 +71,7 @@ class PokemonViewModel(
             try {
                 val data = loader.load(url) // suspend call
                 _imageBytes.value = data
-                Log.d("apapa", "${imageBytes.value}")
             } catch (e: Exception) {
-                Log.e("apapa", "$e")
                 // handle
             }
         }
@@ -82,10 +80,4 @@ class PokemonViewModel(
     fun moveNext() = navigator.moveNext()
 
     fun movePrevious() = navigator.movePrevious()
-
-    fun getTypes() = pokemon.value?.types ?: emptyList()
-
-    fun getAbilities() = pokemon.value?.abilities ?: emptyList()
-
-    fun getStats() = pokemon.value?.stats ?: emptyList()
 }
