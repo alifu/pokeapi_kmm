@@ -46,6 +46,23 @@ struct PokedexView: View {
                     .padding(.trailing, 16)
                 }
                 
+                NavigationLink(
+                    destination: Group {
+                        if let index = selectedPokemon {
+                            PokemonView(
+                                viewModel: PokemonViewModel(results: viewModel.pokemons, startIndex: index)
+                            )
+                        }
+                    },
+                    isActive: Binding(
+                        get: { selectedPokemon != nil },
+                        set: { if !$0 { selectedPokemon = nil } }
+                    )
+                ) {
+                    EmptyView()
+                }
+                .hidden()
+                
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(Color(AppColor.white))

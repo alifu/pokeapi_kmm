@@ -110,7 +110,7 @@ fun PokemonCard(
             LaunchedEffect(imageURL) {
                 imageURL?.let { url ->
                     scope.launch {
-                        loader.load(url)?.let { byteArray ->
+                        loader.load(url).let { byteArray ->
                             val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                             bitmap = bmp
                         }

@@ -31,9 +31,16 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
+import com.appwork.pokeapi_kmm.models.Pokedex
 
 @Composable
-fun PokedexView(viewModel: PokedexViewModel = viewModel()) {
+fun PokedexView(
+    viewModel: PokedexViewModel = viewModel(),
+    onNavigateToDetail: (
+        results: List<Pokedex>,
+        startIndex: Int
+    ) -> Unit
+) {
     val pokedexResponse by viewModel.list.observeAsState(emptyList())
     var buttonFrame by remember { mutableStateOf<Rect?>(null) }
     var selectedPokemon by remember { mutableStateOf(-1) }
@@ -131,6 +138,7 @@ fun PokedexView(viewModel: PokedexViewModel = viewModel()) {
                                 .wrapContentHeight()
                                 .clickable {
                                     selectedPokemon = index
+                                    onNavigateToDetail(pokedexResponse, index)
                                 }
                         )
                     }

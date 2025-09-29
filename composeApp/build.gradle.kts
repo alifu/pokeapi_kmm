@@ -33,7 +33,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                // Compose multiplatform (safe for Android & iOS)
+                // Compose multiplatform
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
@@ -77,17 +77,17 @@ kotlin {
                 implementation(libs.ktor.client.okhttp)
 
                 implementation("androidx.compose.runtime:runtime-livedata:1.5.0")
+
+                implementation("androidx.navigation:navigation-compose:2.8.3")
             }
         }
 
         val iosMain by creating {
             dependsOn(commonMain)
             dependencies {
-                // iOS Ktor engine
                 implementation(libs.ktor.client.darwin)
             }
         }
-
         val iosArm64Main by getting { dependsOn(iosMain) }
         val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
     }
@@ -124,4 +124,3 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
 }
-

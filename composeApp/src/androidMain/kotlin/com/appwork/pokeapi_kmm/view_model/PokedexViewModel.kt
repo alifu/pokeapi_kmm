@@ -49,18 +49,4 @@ class PokedexViewModel: ViewModel() {
             }
         }
     }
-
-//    fun loadDetail(name: String, onResult: (Pokemon) -> Unit) {
-//        viewModelScope.launch {
-//            val p = sdk.fetchPokemon(name)
-//            onResult(p)
-//        }
-//    }
-//
-//    fun loadSpecies(name: String, onResult: (PokemonSpecies) -> Unit) {
-//        viewModelScope.launch {
-//            val s = sdk.fetchSpecies(name)
-//            onResult(s)
-//        }
-//    }
 }
